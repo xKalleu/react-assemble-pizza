@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
+import { Link } from 'react-router-dom'
 
 import {
   Container,
@@ -6,12 +7,16 @@ import {
   Title,
   Box,
   Image,
-  Description
+  Description,
+  Value
 } from './styles'
 
 import Icon from '../../components/Icon'
+import pizzaSizes from '../../fake-data/pizza-sizes'
+import { ActionType } from '../../routes'
 
-const Home: React.FC = () => {
+
+const Home = ({ stepsDispatch: Dispatch<any> }) => {
   return (
     <Container>
       <Title>
@@ -19,30 +24,21 @@ const Home: React.FC = () => {
       </Title>
 
       <Grid>
-        <Box>
-          <Image>
-            <Icon name="pizza" width={25} />
-          </Image>
-          <Description>
-            Pizza 1
-          </Description>
-        </Box>
-        <Box>
-          <Image>
-
-          </Image>
-          <Description>
-            Pizza 1
-          </Description>
-        </Box>
-        <Box>
-          <Image>
-
-          </Image>
-          <Description>
-            Pizza 1
-          </Description>
-        </Box>
+        {pizzaSizes.map((pizza) => (
+          <Box key={pizza.id}>
+            <div onClick={() => stepsDispatch({ type: 'SET_SIZE', payload: pizza.id })}>
+              <Image>
+                <Icon name="pizza" width={100} />
+              </Image>
+              <Description>
+                <Value>
+                  {pizza.size}
+                </Value>
+                {pizza.name}
+              </Description>
+            </div>
+          </Box>
+        ))}
       </Grid>
     </Container>
   );

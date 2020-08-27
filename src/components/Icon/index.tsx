@@ -2,12 +2,12 @@ import React from 'react'
 
 import Pizza from './Pizza'
 
-interface PageHeaderProps {
+interface IconProps {
   name: string;
   width?: number;
 }
 
-export default function Icon({ name, width }: PageHeaderProps) {
+export default function Icon({ name, width }: IconProps) {
   switch (name) {
     case 'pizza':
       return <Pizza width={`${width}px`} />

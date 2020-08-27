@@ -1,18 +1,17 @@
 
 import React from 'react'
-import { Outlet } from 'react-router-dom'
 import { Container } from './styles'
 
 import GlobalStyle from '../../styles/GlobalStyle';
 import Header from '../../components/Header';
 
-const Layout: React.FC = () => {
+const Layout: React.FC = ({ children }) => {
   return (
     <>
       <GlobalStyle />
       <Header />
       <Container>
-        <Outlet />
+        {children}
       </Container>
     </>
   );

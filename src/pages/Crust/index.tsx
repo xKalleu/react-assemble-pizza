@@ -4,6 +4,13 @@ import {
   Container
 } from './styles'
 
+interface location {
+  id?: number;
+  name?: string;
+  size?: number;
+  flavours?: number;
+}
+
 const Crust: React.FC = () => {
   return (
     <Container>
