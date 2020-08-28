@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect, Dispatch } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import Crust from './pages/Crust'
@@ -7,8 +7,9 @@ import Layout from './pages/Layout'
 import Topping from './pages/Topping'
 
 const initialState = {
-  size: null,
-  crusts: null,
+  size: undefined,
+  crusts: undefined,
+  value: undefined,
   toppings: []
 }
 
@@ -17,31 +18,39 @@ export interface ActionType {
   payload: any;
 }
 
-interface StateTypes {
-  size: any;
-  crusts: any;
-  toppings: Array<number>;
+export interface StateTypes {
+  size?: number;
+  crusts?: number;
+  value?: number;
+  toppings: number[];
 }
 
-function reducer(state: StateTypes, action: ActionType) {
+export type PizzaAction =
+  | { type: 'SET_SIZE'; sizeId: number; }
+  | { type: 'SET_CRUST'; crustId: number; }
+  | { type: 'TOGGLE_TOPPINGS'; toppings: number[]; }
+
+export type CartDispatch = Dispatch<PizzaAction>;
+
+function reducer(state: StateTypes, action: PizzaAction): StateTypes {
   switch (action.type) {
     case 'SET_SIZE':
       return {
         ...state,
-        size: action.payload
+        size: action.sizeId
       };
 
     case 'SET_CRUST':
       return {
         ...state,
-        crusts: action.payload
+        crusts: action.crustId
       };
 
-    case 'TOGGLE_TOPPINGS':
-      return {
-        ...state,
-        toppings: [...state.toppings, action.payload]
-      };
+    // case 'TOGGLE_TOPPINGS':
+    //   return {
+    //     ...state,
+    //     toppings: [...state.toppings, action.toppings]
+    //   };
 
     default:
       return state;
@@ -59,9 +68,9 @@ function App() {
     <Layout>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home stepsDispatch={dispatch} />} />
-          <Route path="crusts" element={<Crust stepsDispatch={dispatch} />} />
-          <Route path="toppings" element={<Topping stepsDispatch={dispatch} />} />
+          <Route path="/" element={<Home stepsDispatch={dispatch} state={state} />} />
+          <Route path="crusts" element={<Crust stepsDispatch={dispatch} state={state} />} />
+          <Route path="toppings" element={<Topping stepsDispatch={dispatch} state={state} />} />
         </Routes>
       </BrowserRouter>
     </Layout>

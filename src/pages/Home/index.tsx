@@ -1,4 +1,4 @@
-import React, { Dispatch } from 'react';
+import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom'
 
 import {
@@ -13,10 +13,15 @@ import {
 
 import Icon from '../../components/Icon'
 import pizzaSizes from '../../fake-data/pizza-sizes'
-import { ActionType } from '../../routes'
+import { CartDispatch, StateTypes } from '../../routes'
+
+interface HomeProps {
+  stepsDispatch: CartDispatch;
+  state: StateTypes;
+}
 
 
-const Home = ({ stepsDispatch: Dispatch<any> }) => {
+const Home: FunctionComponent<HomeProps> = ({ stepsDispatch, state }) => {
   return (
     <Container>
       <Title>
@@ -24,22 +29,26 @@ const Home = ({ stepsDispatch: Dispatch<any> }) => {
       </Title>
 
       <Grid>
-        {pizzaSizes.map((pizza) => (
-          <Box key={pizza.id}>
-            <div onClick={() => stepsDispatch({ type: 'SET_SIZE', payload: pizza.id })}>
+        {pizzaSizes.map((pizzaSize) => (
+          <Box key={pizzaSize.id} isSelected={pizzaSize.id === state.size} >
+            <Link to="/crusts" onClick={() => stepsDispatch({ type: 'SET_SIZE', sizeId: pizzaSize.id })}>
               <Image>
                 <Icon name="pizza" width={100} />
               </Image>
               <Description>
                 <Value>
-                  {pizza.size}
+                  {pizzaSize.size}
                 </Value>
-                {pizza.name}
+                {pizzaSize.name}
               </Description>
-            </div>
+            </Link>
           </Box>
         ))}
       </Grid>
+
+      <Title>
+        Valor: {state.value}
+      </Title>
     </Container>
   );
 };
