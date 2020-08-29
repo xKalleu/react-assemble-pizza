@@ -13,13 +13,12 @@ import {
 
 import Icon from '../../components/Icon'
 import pizzaSizes from '../../fake-data/pizza-sizes'
-import { CartDispatch, StateTypes } from '../../routes'
+import { PizzaDispatch, StateTypes } from '../../routes'
 
 interface HomeProps {
-  stepsDispatch: CartDispatch;
+  stepsDispatch: PizzaDispatch;
   state: StateTypes;
 }
-
 
 const Home: FunctionComponent<HomeProps> = ({ stepsDispatch, state }) => {
   return (
@@ -31,13 +30,13 @@ const Home: FunctionComponent<HomeProps> = ({ stepsDispatch, state }) => {
       <Grid>
         {pizzaSizes.map((pizzaSize) => (
           <Box key={pizzaSize.id} isSelected={pizzaSize.id === state.size} >
-            <Link to="/crusts" onClick={() => stepsDispatch({ type: 'SET_SIZE', sizeId: pizzaSize.id })}>
+            <Link to="/crusts" onClick={() => { stepsDispatch({ type: 'SET_SIZE', sizeId: pizzaSize.id }); stepsDispatch({ type: 'SET_VALUE', value: pizzaSize.value }); }}>
               <Image>
                 <Icon name="pizza" width={100} />
               </Image>
               <Description>
                 <Value>
-                  {pizzaSize.size}
+                  {pizzaSize.value}
                 </Value>
                 {pizzaSize.name}
               </Description>

@@ -28,9 +28,10 @@ export interface StateTypes {
 export type PizzaAction =
   | { type: 'SET_SIZE'; sizeId: number; }
   | { type: 'SET_CRUST'; crustId: number; }
+  | { type: 'SET_VALUE'; value: number; }
   | { type: 'TOGGLE_TOPPINGS'; toppings: number[]; }
 
-export type CartDispatch = Dispatch<PizzaAction>;
+export type PizzaDispatch = Dispatch<PizzaAction>;
 
 function reducer(state: StateTypes, action: PizzaAction): StateTypes {
   switch (action.type) {
@@ -44,6 +45,12 @@ function reducer(state: StateTypes, action: PizzaAction): StateTypes {
       return {
         ...state,
         crusts: action.crustId
+      };
+
+    case 'SET_VALUE':
+      return {
+        ...state,
+        value: action.value + action.value
       };
 
     // case 'TOGGLE_TOPPINGS':
