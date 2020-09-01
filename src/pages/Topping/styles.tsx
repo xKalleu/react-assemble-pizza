@@ -54,6 +54,10 @@ export const Image = styled.img`
   max-height: 70px;
 `
 
+export const Input = styled.input`
+  width: 20px;
+`
+
 export const Description = styled.div`
   border-top: 1px solid rgb(110, 125, 151);
   color: rgb(33, 34, 44);

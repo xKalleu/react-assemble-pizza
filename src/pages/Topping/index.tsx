@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 
 import {
@@ -8,6 +8,7 @@ import {
   Grid,
   Image,
   Title,
+  Input
 } from './styles'
 
 import { PizzaDispatch, StateTypes } from '../../routes'
@@ -29,9 +30,16 @@ const imageIdMapper: { [index: number]: any } = {
 interface CrustProps {
   stepsDispatch: PizzaDispatch;
   state: StateTypes;
+  onChange?: React.FormEventHandler<HTMLInputElement>;
 }
 
 const Topping: FunctionComponent<CrustProps> = ({ stepsDispatch, state }) => {
+  useEffect(() => {
+    if (state.toppings.length > 3) {
+      state.value = state.value! + 0.5
+    }
+  });
+
   return (
     <Container>
       <Title>
@@ -40,16 +48,20 @@ const Topping: FunctionComponent<CrustProps> = ({ stepsDispatch, state }) => {
 
       <Grid>
         {pizzaToppings.map((pizzaTopping) => (
-          <Box key={pizzaTopping.id} isSelected={pizzaTopping.id === state.crusts} >
-            <Link to="/crusts" onClick={() => stepsDispatch({ type: 'SET_CRUST', crustId: pizzaTopping.id })}>
-              <Image src={imageIdMapper[pizzaTopping.id]} alt={pizzaTopping.name} >
-              </Image>
-              <Description>
-                {pizzaTopping.name}
-              </Description>
-            </Link>
+          <Box key={pizzaTopping.id} isSelected={pizzaTopping.id === pizzaTopping.id} onChange={() => stepsDispatch({ type: 'TOGGLE_TOPPINGS', toppings: pizzaTopping.name })} >
+            <Input
+              type="checkbox"
+              value={pizzaTopping.name}
+              name={pizzaTopping.name}
+            />
+            <Image src={imageIdMapper[pizzaTopping.id]} alt={pizzaTopping.name} >
+            </Image>
+            <Description>
+              {pizzaTopping.name}
+            </Description>
           </Box>
         ))}
+        <Link to="/custom-pizza"> Next Page</Link>
       </Grid>
 
       <Title>

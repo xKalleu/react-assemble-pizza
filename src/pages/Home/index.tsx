@@ -8,7 +8,8 @@ import {
   Box,
   Image,
   Description,
-  Value
+  Value,
+  Input
 } from './styles'
 
 import Icon from '../../components/Icon'
@@ -29,26 +30,26 @@ const Home: FunctionComponent<HomeProps> = ({ stepsDispatch, state }) => {
 
       <Grid>
         {pizzaSizes.map((pizzaSize) => (
-          <Box key={pizzaSize.id} isSelected={pizzaSize.id === state.size} >
-            <Link to="/crusts" onClick={() => { stepsDispatch({ type: 'SET_SIZE', sizeId: pizzaSize.id }); stepsDispatch({ type: 'SET_VALUE', value: pizzaSize.value }); }}>
-              <Image>
-                <Icon name="pizza" width={100} />
-              </Image>
-              <Description>
-                <Value>
-                  {pizzaSize.value}
-                </Value>
-                {pizzaSize.name}
-              </Description>
-            </Link>
+          <Box key={pizzaSize.id} isSelected={pizzaSize.id === state.size} onChange={() => { stepsDispatch({ type: 'SET_SIZE', sizeId: pizzaSize }); stepsDispatch({ type: 'SET_VALUE', value: pizzaSize.value }); }} >
+            <Input type="radio" value="MALE" name="gender" />
+            <Image>
+              <Icon name="pizza" width={100} />
+            </Image>
+            <Description>
+              <Value>
+                {pizzaSize.value}
+              </Value>
+              {pizzaSize.name}
+            </Description>
           </Box>
         ))}
+        <Link to="/crusts">Next Page</Link>
       </Grid>
 
       <Title>
         Valor: {state.value}
       </Title>
-    </Container>
+    </Container >
   );
 };
 

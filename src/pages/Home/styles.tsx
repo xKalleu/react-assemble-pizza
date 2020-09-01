@@ -26,6 +26,10 @@ export const Grid = styled.div`
   }
 `
 
+export const Input = styled.input`
+  width: 20px;
+`
+
 export const Title = styled.h2`
   font-size: 32px;
   font-weight: 400;

@@ -8,7 +8,8 @@ import {
   Box,
   Image,
   Description,
-  Value
+  Value,
+  Input
 } from './styles'
 
 import Icon from '../../components/Icon'
@@ -22,6 +23,8 @@ interface CrustProps {
 
 
 const Crust: FunctionComponent<CrustProps> = ({ stepsDispatch, state }) => {
+  const [crustValue, setCrustValue] = React.useState(0)
+
   return (
     <Container>
       <Title>
@@ -30,26 +33,27 @@ const Crust: FunctionComponent<CrustProps> = ({ stepsDispatch, state }) => {
 
       <Grid>
         {pizzaCrusts.map((pizzaCrust) => (
-          <Box key={pizzaCrust.id} isSelected={pizzaCrust.id === state.crusts} >
-            <Link to="/topping" onClick={() => { stepsDispatch({ type: 'SET_CRUST', crustId: pizzaCrust.id }); stepsDispatch({ type: 'SET_VALUE', value: pizzaCrust.value }); }}>
-              <Image>
-                <Icon name="pizza" width={100} />
-              </Image>
-              <Description>
-                <Value>
-                  {pizzaCrust.value}
-                </Value>
-                {pizzaCrust.name}
-              </Description>
-            </Link>
+          <Box key={pizzaCrust.id} onChange={() => { stepsDispatch({ type: 'SET_CRUST', crustStr: pizzaCrust.name }) }}>
+            <Input type="radio" value={pizzaCrust.value} name={pizzaCrust.name} onClick={() => setCrustValue(pizzaCrust.value)} />
+            <Image>
+              <Icon name="pizza" width={100} />
+            </Image>
+            <Description>
+              <Value>
+                {pizzaCrust.value}
+              </Value>
+              {pizzaCrust.name}
+            </Description>
           </Box>
         ))}
+
+        <Link to="/toppings" onClick={() => { stepsDispatch({ type: 'SET_VALUE', value: crustValue + state.value! }); }} >Next Page </Link>
       </Grid>
 
       <Title>
         Valor: {state.value}
       </Title>
-    </Container>
+    </Container >
   );
 };
 
