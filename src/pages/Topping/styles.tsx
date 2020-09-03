@@ -1,8 +1,5 @@
 import styled from 'styled-components';
-
-interface BoxProps {
-  isSelected: boolean;
-}
+import { Link } from 'react-router-dom'
 
 export const Container = styled.div`
   margin-bottom: 6rem;
@@ -25,7 +22,7 @@ export const Grid = styled.div`
   grid-template-columns: 1fr;
   margin-top: 5rem;
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 998px) {
     grid-template-columns: repeat(3, 1fr);
   }
 `
@@ -37,12 +34,15 @@ export const Title = styled.h2`
   color: #000;
 `
 
-export const Box = styled.div<BoxProps>`
-  background-color: ${({ isSelected }) => isSelected ? 'red' : 'white'};
+export const Box = styled.div`
+  align-items: center;
   border-radius: 10px;
   box-shadow: 0 2px 10px 0 rgba(117,141,166,.2142);
   color: #000;
+  display: grid;
+  grid-template-columns: 1fr 2fr 3fr;
   height: 100%;
+  justify-items: center;
   overflow: hidden;
   text-decoration: none;
   width: 100%;
@@ -59,9 +59,8 @@ export const Input = styled.input`
 `
 
 export const Description = styled.div`
-  border-top: 1px solid rgb(110, 125, 151);
   color: rgb(33, 34, 44);
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: 600;
   line-height: 1.6rem;
   padding: 1rem 0;
@@ -69,4 +68,24 @@ export const Description = styled.div`
 
 export const Value = styled.div`
   margin-bottom: 1.0rem;
+`
+
+export const Button = styled(Link)` 
+  background-color: rgb(10, 19, 42);
+  border-radius: 0.5rem;
+  border: 2px solid rgb(11, 32, 85);
+  color: rgb(255, 255, 255);
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1.7rem;
+  padding: 1rem 0;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  width: 100%;
+
+  @media screen and (min-width: 968px) {
+    grid-column: 3;
+    grid-row: 5;
+  }
 `

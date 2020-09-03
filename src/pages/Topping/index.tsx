@@ -1,5 +1,4 @@
-import React, { FunctionComponent, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
+import React, { FunctionComponent, useEffect, useState } from 'react';
 
 import {
   Box,
@@ -8,7 +7,8 @@ import {
   Grid,
   Image,
   Title,
-  Input
+  Input,
+  Button
 } from './styles'
 
 import { PizzaDispatch, StateTypes } from '../../routes'
@@ -34,23 +34,27 @@ interface CrustProps {
 }
 
 const Topping: FunctionComponent<CrustProps> = ({ stepsDispatch, state }) => {
+  const [, setExtraCost] = useState(0);
+  const [prevValue] = useState(state.value);
+
   useEffect(() => {
-    if (state.toppings.length > 3) {
-      state.value = state.value! + 0.5
-    }
-  });
+    const dispatchCost = state.toppings.reduce((final: number, _current: string, index: number) => { final += index < 3 ? 0 : 0.5; return final }, 0);
+    state.value = dispatchCost + prevValue!;
+    setExtraCost(dispatchCost);
+  }, [state.toppings, state.value, prevValue]);
 
   return (
     <Container>
       <Title>
-        Choose your crust
+        Choose your toppings
       </Title>
 
       <Grid>
         {pizzaToppings.map((pizzaTopping) => (
-          <Box key={pizzaTopping.id} isSelected={pizzaTopping.id === pizzaTopping.id} onChange={() => stepsDispatch({ type: 'TOGGLE_TOPPINGS', toppings: pizzaTopping.name })} >
+          <Box key={pizzaTopping.id} onChange={() => stepsDispatch({ type: 'TOGGLE_TOPPINGS', toppings: pizzaTopping.name })} >
             <Input
               type="checkbox"
+              disabled={!state.toppings.find((item: string) => item === pizzaTopping.name) && state.toppings.length >= state.size[0].maxIngredients}
               value={pizzaTopping.name}
               name={pizzaTopping.name}
             />
@@ -61,12 +65,8 @@ const Topping: FunctionComponent<CrustProps> = ({ stepsDispatch, state }) => {
             </Description>
           </Box>
         ))}
-        <Link to="/custom-pizza"> Next Page</Link>
+        <Button to="/custom-pizza">Finished</Button>
       </Grid>
-
-      <Title>
-        Valor: {state.value}
-      </Title>
     </Container>
   );
 };

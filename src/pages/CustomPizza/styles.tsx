@@ -1,9 +1,5 @@
 import styled from 'styled-components';
 
-interface BoxProps {
-  isSelected: boolean;
-}
-
 export const Container = styled.div`
   margin-bottom: 6rem;
   margin-left: auto;
@@ -37,8 +33,7 @@ export const Title = styled.h2`
   color: #000;
 `
 
-export const Box = styled.div<BoxProps>`
-  background-color: ${({ isSelected }) => isSelected ? 'red' : 'white'};
+export const Box = styled.div`
   border-radius: 10px;
   box-shadow: 0 2px 10px 0 rgba(117,141,166,.2142);
   color: #000;
@@ -59,12 +54,13 @@ export const Input = styled.input`
 `
 
 export const Description = styled.div`
-  border-top: 1px solid rgb(110, 125, 151);
-  color: rgb(33, 34, 44);
-  font-size: 1.6rem;
+  border: 1px solid rgb(110,125,151);
+  color: rgb(33,34,44);
+  font-size: 1.4rem;
   font-weight: 600;
   line-height: 1.6rem;
   padding: 1rem 0;
+  margin-top: 50px;
 `
 
 export const Value = styled.div`

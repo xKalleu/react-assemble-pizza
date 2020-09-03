@@ -2,11 +2,12 @@ import React, { FunctionComponent } from 'react';
 
 import {
   Container,
-  Title,
   Description,
+  Title,
   Value
 } from './styles'
 
+import { formatMoney } from '../../assets/lib/utils';
 import { StateTypes } from '../../routes'
 
 interface CustomProps {
@@ -15,7 +16,6 @@ interface CustomProps {
 
 const CustomPizza: FunctionComponent<CustomProps> = ({ state }) => {
   const { name } = state.size[0]
-  const amount = state.value?.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 
   return (
     <Container>
@@ -31,7 +31,15 @@ const CustomPizza: FunctionComponent<CustomProps> = ({ state }) => {
           Crust: {state.crusts}
         </Value>
         <Value>
-          Amount: $ {amount}
+          Toppings:
+        </Value>
+        {state.toppings.map((topping: React.ReactNode) => (
+          <Value>
+            {topping}
+          </Value>
+        ))}
+        <Value>
+          Amount: $ {formatMoney(state.value!)}
         </Value>
 
       </Description>

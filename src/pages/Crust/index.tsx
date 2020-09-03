@@ -1,19 +1,20 @@
-import React, { FunctionComponent } from 'react';
-import { Link } from 'react-router-dom'
+import React, { FunctionComponent, useState } from 'react';
 
 import {
-  Container,
-  Grid,
-  Title,
   Box,
-  Image,
+  Button,
+  Container,
   Description,
-  Value,
-  Input
+  Grid,
+  Image,
+  Input,
+  Title,
+  Value
 } from './styles'
 
-import Icon from '../../components/Icon'
+import { formatMoney } from '../../assets/lib/utils';
 import { PizzaDispatch, StateTypes } from '../../routes'
+import Icon from '../../components/Icon'
 import pizzaCrusts from '../../fake-data/pizza-crust'
 
 interface CrustProps {
@@ -21,9 +22,8 @@ interface CrustProps {
   state: StateTypes;
 }
 
-
 const Crust: FunctionComponent<CrustProps> = ({ stepsDispatch, state }) => {
-  const [crustValue, setCrustValue] = React.useState(0)
+  const [crustValue, setCrustValue] = useState(0)
 
   return (
     <Container>
@@ -34,25 +34,21 @@ const Crust: FunctionComponent<CrustProps> = ({ stepsDispatch, state }) => {
       <Grid>
         {pizzaCrusts.map((pizzaCrust) => (
           <Box key={pizzaCrust.id} onChange={() => { stepsDispatch({ type: 'SET_CRUST', crustStr: pizzaCrust.name }) }}>
-            <Input type="radio" value={pizzaCrust.value} name={pizzaCrust.name} onClick={() => setCrustValue(pizzaCrust.value)} />
+            <Input type="radio" value="pizza" name="pizza select" onClick={() => setCrustValue(pizzaCrust.value)} />
             <Image>
               <Icon name="pizza" width={100} />
             </Image>
             <Description>
               <Value>
-                {pizzaCrust.value}
+                $ {formatMoney(pizzaCrust.value)}
               </Value>
               {pizzaCrust.name}
             </Description>
           </Box>
         ))}
 
-        <Link to="/toppings" onClick={() => { stepsDispatch({ type: 'SET_VALUE', value: crustValue + state.value! }); }} >Next Page </Link>
+        <Button to="/toppings" onClick={() => { stepsDispatch({ type: 'SET_VALUE', value: crustValue + state.value! }); }} >Continue</Button>
       </Grid>
-
-      <Title>
-        Valor: {state.value}
-      </Title>
     </Container >
   );
 };

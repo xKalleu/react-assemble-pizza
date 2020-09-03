@@ -1,11 +1,11 @@
 
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import { Container } from './styles'
 
 import GlobalStyle from '../../styles/GlobalStyle';
 import Header from '../../components/Header';
 
-const Layout: React.FC = ({ children }) => {
+const Layout: FunctionComponent = ({ children }) => {
   return (
     <>
       <GlobalStyle />
