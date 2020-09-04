@@ -60,7 +60,7 @@ export const Description = styled.div`
 `
 
 export const Value = styled.div`
-  margin-bottom: 1.0rem;
+  margin: 0 10px 1.0rem 10px;
 `
 
 export const Button = styled(Link)` 
@@ -80,4 +80,12 @@ export const Button = styled(Link)`
   @media screen and (min-width: 968px) {
     grid-column: 3;
   }
+`
+
+export const Loading = styled.div`
+  margin: 150px;
+  font-weight: 600;
+  font-size: 3.6rem;
+  line-height: 4.6rem;
+  color: #21222C;
 `

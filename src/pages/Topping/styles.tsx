@@ -89,3 +89,11 @@ export const Button = styled(Link)`
     grid-row: 5;
   }
 `
+
+export const Loading = styled.div`
+  margin: 150px;
+  font-weight: 600;
+  font-size: 3.6rem;
+  line-height: 4.6rem;
+  color: #21222C;
+`

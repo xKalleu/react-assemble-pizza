@@ -8,30 +8,30 @@ import {
   Grid,
   Image,
   Input,
+  Loading,
   Title,
   Value
 } from './styles'
 
-import { formatMoney } from '../../assets/lib/utils';
-import { PizzaDispatch, StateTypes } from '../../routes'
-import Icon from '../../components/Icon'
 import { endpoints } from '../../helpers/endpoints'
+import { formatMoney } from '../../assets/lib/utils';
+import { PizzaDispatch, IStateTypes } from '../../routes'
+import Icon from '../../components/Icon'
 
-interface HomeProps {
+interface IHomeProps {
+  state: IStateTypes;
   stepsDispatch: PizzaDispatch;
-  state: StateTypes;
 }
 
-interface PizzaProps {
-  [x: string]: number;
+interface IPizzaProps {
   id: number;
   maxIngredients: number;
+  name: string;
   value: number;
 }
 
-const Home: FunctionComponent<HomeProps> = ({ stepsDispatch }) => {
+const Home: FunctionComponent<IHomeProps> = ({ stepsDispatch }) => {
   const [pizzaSizes, setPizzaSizes] = useState([]);
-
 
   useEffect(() => {
     setTimeout(() => {
@@ -39,16 +39,16 @@ const Home: FunctionComponent<HomeProps> = ({ stepsDispatch }) => {
         .then(response =>
           response.json().then(result => setPizzaSizes(result))
         )
-    }, 3000);
+    }, 500);
   }, [])
 
-  let output = (<h2 style={{ color: 'green' }}>Loading...</h2>);
+  let output = (<Loading>Loading...</Loading>);
 
   if (pizzaSizes.length > 0) {
     output = (
       <Grid>
-        {pizzaSizes.map(({ id, value, name, maxIngredients }: PizzaProps) => (
-          <Box key={id} onChange={() => { stepsDispatch({ type: 'SET_SIZE', sizeId: id }); stepsDispatch({ type: 'SET_VALUE', value: value }); }} >
+        {pizzaSizes.map(({ id, value, name, maxIngredients }: IPizzaProps) => (
+          <Box key={id} onChange={() => { stepsDispatch({ type: 'SET_SIZE', sizeId: { id, value, name, maxIngredients } }); stepsDispatch({ type: 'SET_VALUE', value: value }); }} >
             <Input type="radio" value="pizza" name="pizza select" />
             <Image>
               <Icon name="pizza" width={100} />

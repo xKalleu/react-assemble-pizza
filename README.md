@@ -1,3 +1,14 @@
+### `netlify dev`
+
+Runs the app in the development mode.<br />
+Open [http://localhost:8000](http://localhost:8000) to view it in the browser.
+
+Netlify Functions was used to create the backend, the API routes were written with JS.
+AWS Lambda was used to facilitate the creation of the application so that they respond quickly to new information.
+
+
+See the section about (https://www.netlify.com/products/functions/) for more information.
+
 ### `yarn start`
 
 Runs the app in the development mode.<br />

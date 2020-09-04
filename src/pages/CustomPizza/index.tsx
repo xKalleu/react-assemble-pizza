@@ -8,10 +8,10 @@ import {
 } from './styles'
 
 import { formatMoney } from '../../assets/lib/utils';
-import { StateTypes } from '../../routes'
+import { IStateTypes } from '../../routes'
 
 interface CustomProps {
-  state: StateTypes;
+  state: IStateTypes;
 }
 
 const CustomPizza: FunctionComponent<CustomProps> = ({ state }) => {

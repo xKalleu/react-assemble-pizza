@@ -14,34 +14,22 @@ const initialState = {
   toppings: []
 }
 
-export interface ActionType {
-  type: string;
-  payload: any;
-}
-
-export interface SizeTypes {
-  id: number,
-  name: string,
-  value: number,
-  maxIngredients: number,
-}
-
-export interface StateTypes {
+export interface IStateTypes {
   size?: any;
   crusts?: string;
   value?: number;
   toppings: any;
 }
 
-export type PizzaAction =
+export type TPizzaAction =
   | { type: 'SET_SIZE'; sizeId: any }
   | { type: 'SET_CRUST'; crustStr: string; }
   | { type: 'SET_VALUE'; value: number; }
   | { type: 'TOGGLE_TOPPINGS'; toppings: any; }
 
-export type PizzaDispatch = Dispatch<PizzaAction>;
+export type PizzaDispatch = Dispatch<TPizzaAction>;
 
-function reducer(state: StateTypes, action: PizzaAction): StateTypes {
+function reducer(state: IStateTypes, action: TPizzaAction): IStateTypes {
   switch (action.type) {
     case 'SET_SIZE':
       return {
