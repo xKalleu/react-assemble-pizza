@@ -1,22 +1,22 @@
 const pizzaSizes = [{
     id: 0,
     name: 'Small',
-    size: 8,
-    flavours: 5
+    value: 8,
+    maxIngredients: 5,
   },
 
   {
     id: 1,
     name: 'Medium',
-    size: 10,
-    flavours: 7
+    value: 10,
+    maxIngredients: 7,
   },
 
   {
     id: 2,
     name: 'Large',
-    size: 12,
-    flavours: 9
+    value: 12,
+    maxIngredients: 9,
   }
 ]
 
